@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Get Key Free</title>
+</head>
+<body>
+    
+    <!-- Thêm một phần tử để hiển thị khóa -->
+    <p id="keyDisplay"></p>
+    
+    <script>
+        // JavaScript để lấy và hiển thị khóa thay đổi theo ngày
+        function getKey() {
+            // Lấy ngày hiện tại dưới dạng chuỗi (VD: "2023-09-10")
+            var currentDate = new Date().toISOString().split('T')[0];
+            
+            // Kiểm tra xem đã có khóa cho ngày hiện tại chưa
+            if (!localStorage.getItem(currentDate)) {
+                // Nếu chưa có, tạo một khóa mới và lưu trữ
+                var randomKey = generateRandomKey();
+                localStorage.setItem(currentDate, randomKey);
+                return randomKey;
+            } else {
+                // Nếu đã có, trả về khóa đã lưu trữ
+                return localStorage.getItem(currentDate);
+            }
+        }
+
+        // Hàm tạo khóa ngẫu nhiên
+        function generateRandomKey() {
+            // Tạo một khóa ngẫu nhiên (ví dụ: chuỗi ngẫu nhiên 16 ký tự)
+            return Math.random().toString(36).substring(2, 10);
+        }
+
+        // Gọi hàm để lấy và hiển thị khóa khi trang web được tải
+        window.onload = function() {
+            var key = getKey();
+            document.getElementById("keyDisplay").textContent = key;
+        };
+    </script>
+</body>
+</html>
